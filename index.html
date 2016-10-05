@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body ng-app="appTasks">
+
+
+  <my-dir>
+    <pre ng-click="showTasks()">задача: </pre>
+    <input ng-model="task">
+    <button ng-click="addTask()">Добавить</button>
+    <br>
+
+    <ol>
+      <li ng-show="!hide" ng-repeat="t in tasks">{{t}}
+        <input ng-model="hide" type="checkbox">
+      </li>
+
+    </ol>
+
+  </my-dir>
+
+</body>
+
+</html>
