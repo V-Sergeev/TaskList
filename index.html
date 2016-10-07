@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="style.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script src="script.js"></script>
@@ -9,16 +10,29 @@
 
 <body ng-app="appTasks">
 
-
   <my-dir>
-    <pre ng-click="showTasks()">задача: </pre>
-    <input ng-model="task">
-    <button ng-click="addTask()">Добавить</button>
+    <form>
+      <label ng-click="showTasks()">задача: </label>
+      <input pattern="^[а-яА-ЯёЁa-zA-Z0-9\s]+$" ng-model="task.name">
+      <label>Дата</label>
+      <input placeholder="дд.мм.гг" pattern="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]\d\d$" ng-model="task.date">
+      <button ng-click="addTask()">Добавить</button>
+    </form>
+    <br> Фильтрация списка
+    <input ng-model="f">
     <br>
 
+    <input name="status" type="radio" ng-model="st" value="yes-no">Все
+    <input name="status" type="radio" ng-model="st" value="no">Завершенные
+    <input name="status" type="radio" ng-model="st" value="yes">Активные
     <ol>
-      <li ng-show="!hide" ng-repeat="t in tasks">{{t}}
-        <input ng-model="hide" type="checkbox">
+      <li ng-repeat="t in tasks | filter:f track by $index" ng-if="st.includes(tasks[$index].status)">
+        <div ng-class="t.status=='no' ? 'TaskStatusEnd' : ''" title="Для редактирования - двойное нажатие кнопки мыши">
+          <input ng-show="edit" ng-model="t.name" ng-blur="edit=false"><span ng-show="!edit" ng-dblclick="edit=true">{{t.name}}</span>
+          <span>{{t.date}}</span>
+        <input ng-model="tasks[$index].status" ng-true-value="'no'" ng-false-value="'yes'" type="checkbox"> {{task.status}}
+        </div>
+        
       </li>
 
     </ol>
@@ -28,3 +42,6 @@
 </body>
 
 </html>
+<!--
+
+-->

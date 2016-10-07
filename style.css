@@ -1,2 +1,6 @@
 /* Styles go here */
 
+.TaskStatusEnd {
+  text-decoration: line-through;
+}
+
